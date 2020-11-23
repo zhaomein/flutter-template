@@ -62,7 +62,7 @@ class App extends StatelessWidget {
                   locale: Locale(state.language),
                   theme: lightTheme,
                   initialRoute: Routes.splash,  //set default route
-                  onGenerateRoute: Routes.appRoutes,
+                  routes: Routes.map,
                 );
               },
             )

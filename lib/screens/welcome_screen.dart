@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Image.asset(
-                      "resources/images/app-logo.png",
+                      "assets/images/app-logo.png",
                       height: 100,
                     ),
                     Text("Caiwai", style: TextStyle(
@@ -44,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           CupertinoButton(
-            onPressed: () => Navigator.of(context).pushNamed(Routes.register),
+            onPressed: () => Navigator.of(context).pushNamed(Routes.login),
             color: HexColor.fromHex('#FF968D'),
             borderRadius: BorderRadius.zero,
             padding: EdgeInsets.only(top: 40, bottom: 40),
