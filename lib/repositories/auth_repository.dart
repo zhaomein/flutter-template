@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:com.ourlife.app/blocs/login/login_event.dart';
-import 'package:com.ourlife.app/blocs/register/register_event.dart';
 import 'package:com.ourlife.app/data/models/user.dart';
 import 'package:com.ourlife.app/config/api_constants.dart' as api;
 import 'package:com.ourlife.app/providers/api_provider.dart';
@@ -15,7 +13,6 @@ abstract class _AuthRepository {
   Future<User> verifyToken(String token);
   Future<bool> forgotPassword();
   Future<dynamic> login(LoginStart data);
-  Future<dynamic> register(RegisterProcess data);
   void logout();
 }
 

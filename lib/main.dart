@@ -1,5 +1,4 @@
 import 'package:com.ourlife.app/blocs/app/bloc.dart';
-import 'package:com.ourlife.app/config/themes.dart';
 import 'package:com.ourlife.app/repositories/chat_repository.dart';
 import 'package:com.ourlife.app/widgets/restart_app.dart';
 import 'package:flutter/material.dart';
