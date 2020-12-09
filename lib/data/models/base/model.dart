@@ -1,4 +1,4 @@
-import '../../providers/database_provider.dart';
+import '../../../providers/database_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Model {

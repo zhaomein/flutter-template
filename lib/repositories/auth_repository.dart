@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:com.kaiyouit.caiwai/blocs/login/login_event.dart';
-import 'package:com.kaiyouit.caiwai/blocs/register/register_event.dart';
-import 'package:com.kaiyouit.caiwai/data/models/user.dart';
-import 'package:com.kaiyouit.caiwai/config/api_constants.dart' as api;
-import 'package:com.kaiyouit.caiwai/data/providers/api_provider.dart';
+import 'package:com.ourlife.app/blocs/login/login_event.dart';
+import 'package:com.ourlife.app/blocs/register/register_event.dart';
+import 'package:com.ourlife.app/data/models/user.dart';
+import 'package:com.ourlife.app/config/api_constants.dart' as api;
+import 'package:com.ourlife.app/providers/api_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:com.kaiyouit.caiwai/extensions/string_extension.dart';
+import 'package:com.ourlife.app/extensions/string_extension.dart';
 
 
 abstract class _AuthRepository {
@@ -20,6 +20,10 @@ abstract class _AuthRepository {
 }
 
 class AuthRepository implements _AuthRepository {
+
+  static final AuthRepository _singleton = AuthRepository._internal();
+  static AuthRepository getInstance() => _singleton;
+  AuthRepository._internal();
 
   Future<Map> getSavedInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

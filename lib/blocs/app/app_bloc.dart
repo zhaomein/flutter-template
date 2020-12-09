@@ -1,4 +1,5 @@
-import 'package:com.kaiyouit.caiwai/repositories/auth_repository.dart';
+import 'package:com.ourlife.app/config/themes.dart';
+import 'package:com.ourlife.app/repositories/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc.dart';
@@ -7,15 +8,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   static AppBloc of(context) => BlocProvider.of<AppBloc>(context);
 
-  final AuthRepository authRepository = AuthRepository();
+  final AuthRepository authRepository = AuthRepository.getInstance();
 
-  AppBloc() {
+  AppBloc() : super(AppState(language: 'ja', theme: lightTheme)) {
     assert(authRepository != null);
     this.add(AppStarted());
   }
-
-  @override
-  AppState get initialState => AppState(language: 'ja');
 
   @override
   Stream<AppState> mapEventToState(

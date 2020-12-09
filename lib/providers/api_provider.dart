@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import '../../helpers/progress_multipart_request.dart';
+import 'package:com.ourlife.app/helpers/progress_multipart_request.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';

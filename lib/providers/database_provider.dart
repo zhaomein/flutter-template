@@ -1,7 +1,7 @@
 import 'dart:io';
-import '../models/base/table.dart';
-import '../models/message.dart';
-import '../../extensions/dynamic_extension.dart';
+import 'package:com.ourlife.app/data/models/base/table.dart';
+import 'package:com.ourlife.app/data/models/message.dart';
+import 'package:com.ourlife.app/extensions/dynamic_extension.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

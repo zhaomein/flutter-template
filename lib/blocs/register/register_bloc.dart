@@ -1,21 +1,18 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:com.kaiyouit.caiwai/repositories/auth_repository.dart';
+import 'package:com.ourlife.app/repositories/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './bloc.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  
+  final AuthRepository authRepository = AuthRepository.getInstance();
 
-  final AuthRepository authRepository;
-
-  RegisterBloc({this.authRepository});
+  RegisterBloc() : super(InitialRegisterState());
 
   static RegisterBloc of(context) {
     return BlocProvider.of<RegisterBloc>(context);
   }
-
-  @override
-  RegisterState get initialState => InitialRegisterState();
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {

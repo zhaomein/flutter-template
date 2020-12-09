@@ -1,5 +1,5 @@
-import '../../providers/database_provider.dart';
-import '../../../extensions/dynamic_extension.dart';
+import 'package:com.ourlife.app/providers/database_provider.dart';
+import 'package:com.ourlife.app/extensions/dynamic_extension.dart';
 import 'package:sqflite/sqflite.dart';
 import 'model.dart';
 

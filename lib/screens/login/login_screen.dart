@@ -1,10 +1,7 @@
-import 'package:com.kaiyouit.caiwai/blocs/app/app_bloc.dart';
-import 'package:com.kaiyouit.caiwai/config/constants.dart';
-import 'package:com.kaiyouit.caiwai/config/routes.dart';
-import 'package:com.kaiyouit.caiwai/extensions/color_extension.dart';
-import 'package:com.kaiyouit.caiwai/language.dart';
-import 'package:com.kaiyouit.caiwai/blocs/login/bloc.dart';
-import 'package:com.kaiyouit.caiwai/widgets/rounded_scaffold.dart';
+import 'package:com.ourlife.app/blocs/app/app_bloc.dart';
+import 'package:com.ourlife.app/config/routes.dart';
+import 'package:com.ourlife.app/language.dart';
+import 'package:com.ourlife.app/blocs/login/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,7 +17,7 @@ class LoginScreen extends StatelessWidget {
     FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
 
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(AppBloc.of(context).authRepository),
+      create: (context) => LoginBloc(),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
@@ -28,15 +25,11 @@ class LoginScreen extends StatelessWidget {
                 .pushNamedAndRemoveUntil(Routes.home, (r) => false);
           }
         },
-        child: RoundedScaffold(
-          appbarColors: [
-            HexColor.fromHex('#FAE232'),
-            HexColor.fromHex('#FAE232')
-          ],
+        child: Scaffold(
           appBar: AppBar(
             title: Text(AppLg.of(context).trans('login')),
           ),
-          child: Center(
+          body: Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.only(bottom: 50, left: 50, right: 50),
               child: Column(

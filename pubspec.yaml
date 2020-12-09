@@ -1,4 +1,4 @@
-name: com.kaiyouit.caiwai
+name: com.ourlife.app
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -24,10 +24,10 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  bloc: ^3.0.0
+  bloc: ^6.1.0
   meta: ^1.1.8
   intl: ^0.16.1
-  flutter_bloc: ^3.1.0
+  flutter_bloc: ^6.1.1
   equatable: ^1.0.1
   
   cupertino_icons: ^0.1.2
@@ -39,10 +39,11 @@ dependencies:
   permission_handler: ^3.2.0
   path_provider: ^1.2.0 #for write/read file
   provider: ^4.0.1 #
-  web_socket_channel: ^1.1.0 #websocket
+  socket_io_client: ^0.9.12
 
   connectivity: ^0.4.5+4 #check connect
   path: ^1.6.4
+  device_id: ^0.2.0
   url_launcher: ^5.4.11
 
   flutter_statusbarcolor: ^0.2.3 #statusbar

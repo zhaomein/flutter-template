@@ -1,78 +1,67 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:connectivity/connectivity.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:com.ourlife.app/config/api_constants.dart';
+import 'package:com.ourlife.app/extensions/dynamic_extension.dart';
+import 'package:device_id/device_id.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 typedef ListenFuntion = Function(Map message);
 
 class SocketConnection {
 
-  IOWebSocketChannel channel;
-  String type;
+  Socket _socket;
+  String _token;
 
-  StreamController _socketStreamController = new StreamController.broadcast();
-  Stream get receiveData => _socketStreamController.stream;
-  
+  bool get connected => _socket != null ? _socket.connected : false;
+  Socket get socket => _socket;
+
   //create singleton
   static final SocketConnection _singleton = new SocketConnection._internal();
   SocketConnection._internal();
   static SocketConnection getInstance() => _singleton;
 
-  void connect() {
-    channel = IOWebSocketChannel.connect("<web_socket_url>");
-    register();
+  static SocketConnection initialize(String token) {
+    _singleton._token = token;
+    return _singleton;
   }
 
-  void register() async {
-    String token = "<Uuser Token>";
-    //print('WS - Conecting with token: $token ----------------------------');
-    print('WS - Conecting... ----------------------------');
-
-    if(token == null || token.isEmpty) return;
-
-    var data = {
-      "type": "register",
-      "content": {
-        "token": token
-      }
-    };
-
-    channel.sink.add(json.encode(data));
-    print('WS - Conected! -----------------------------');
-
-    channel.stream.listen(
-      (dynamic message) {
-        print('WS: received data------------------------');
-        _socketStreamController.add(json.decode(message));
-        //channel.sink.close();
-        //print('WS: ${message.toString()} \n-------------------------------'); 
-      },
-      onDone: () async {
-        print('WS - was closed--------------------');
-        var connectivityResult = await (Connectivity().checkConnectivity());
-        
-        if (connectivityResult == ConnectivityResult.mobile || 
-          connectivityResult == ConnectivityResult.wifi) {
-          print('WS - trying to reconnect-------');
-           SocketConnection.getInstance().connect();
-        } else {
-          print('WS - no internet to reconnect-------');
-        }
-      },
-      onError: (error) {
-        print('WS - error $error-------');
-      }
-    );
-
+  void disconnect() {
+    _socket.disconnect();
   }
 
-  void sendData(String type, Map data) {
-    Map sinkData = {
-      "type": type,
-      "content": data
-    };
-    channel.sink.add(json.encode(sinkData));
-    print(sinkData.toString());
+  void connect() async {
+    if(_token == null) {
+      throw Exception('Socket not initialized.');
+    }
+
+    print('$tag: connecting to server...');
+    final deviceId = await DeviceId.getID;
+
+    _socket = io(BASE_URL, <String, dynamic>{
+      'transports': ['websocket'],
+      'extraHeaders': {
+        'token': _token,
+        'device_id': deviceId
+      }
+    });
+
+    _socket.on('connect', (info) {
+      print('$tag: Connected to server!');
+    });
+
+    _socket.on('connect_error', (err) {
+      print('$tag: connect_error - $err');
+    });
+
+    _socket.on('error', (err) {
+      print('$tag: error - $err');
+    });
+
+    _socket.on('disconnect', (err) {
+      print('$tag: disconnect - $err');
+    });
+
+    _socket.on('connect_timeout', (e) {
+      print('$tag: connect_timeout - $e');
+    });
   }
 
 }

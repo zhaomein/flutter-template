@@ -1,5 +1,5 @@
-import 'package:com.kaiyouit.caiwai/config/constants.dart';
-import 'package:com.kaiyouit.caiwai/language.dart';
+import 'package:com.ourlife.app/config/constants.dart';
+import 'package:com.ourlife.app/language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,14 +1,11 @@
-import 'package:com.kaiyouit.caiwai/blocs/app/app_bloc.dart';
-import 'package:com.kaiyouit.caiwai/config/constants.dart';
-import 'package:com.kaiyouit.caiwai/config/routes.dart';
-import 'package:com.kaiyouit.caiwai/extensions/color_extension.dart';
-import 'package:com.kaiyouit.caiwai/language.dart';
-import 'package:com.kaiyouit.caiwai/blocs/login/bloc.dart';
-import 'package:com.kaiyouit.caiwai/screens/register/widgets/register_step_one.dart';
-import 'package:com.kaiyouit.caiwai/screens/register/widgets/register_step_two.dart';
-import 'package:com.kaiyouit.caiwai/widgets/rounded_scaffold.dart';
+import 'package:com.ourlife.app/blocs/app/app_bloc.dart';
+import 'package:com.ourlife.app/config/routes.dart';
+import 'package:com.ourlife.app/extensions/color_extension.dart';
+import 'package:com.ourlife.app/language.dart';
+import 'package:com.ourlife.app/blocs/login/bloc.dart';
+import 'package:com.ourlife.app/screens/register/widgets/register_step_one.dart';
+import 'package:com.ourlife.app/screens/register/widgets/register_step_two.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +20,7 @@ class RegisterScreen extends StatelessWidget {
     FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
 
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(AppBloc.of(context).authRepository),
+      create: (context) => LoginBloc(),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
@@ -31,15 +28,11 @@ class RegisterScreen extends StatelessWidget {
                 .pushNamedAndRemoveUntil(Routes.home, (r) => false);
           }
         },
-        child: RoundedScaffold(
-          appbarColors: [
-            HexColor.fromHex('#FF968D'),
-            HexColor.fromHex('#FF968D')
-          ],
+        child: Scaffold(
           appBar: AppBar(
             title: Text(AppLg.of(context).trans('register')),
           ),
-          child: PageView(
+          body: PageView(
 //            physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               RegisterStepOne(),

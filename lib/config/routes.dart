@@ -1,9 +1,8 @@
-import 'package:com.kaiyouit.caiwai/screens/login/login_screen.dart';
-import 'package:com.kaiyouit.caiwai/screens/register/register_screen.dart';
-import 'package:com.kaiyouit.caiwai/screens/splash_screen.dart';
-import 'package:com.kaiyouit.caiwai/screens/welcome_screen.dart';
+import 'package:com.ourlife.app/screens/login/login_screen.dart';
+import 'package:com.ourlife.app/screens/register/register_screen.dart';
+import 'package:com.ourlife.app/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:com.kaiyouit.caiwai/screens/main_screen.dart';
+import 'package:com.ourlife.app/screens/main_screen.dart';
 
 class Routes {
   static const String splash = '/';
@@ -12,25 +11,21 @@ class Routes {
   static const String login = '/login';
   static const String register = '/register';
 
-  static Route<dynamic> appRoutes(RouteSettings settings) {
-    switch (settings.name) {
-      case splash:
-        return CupertinoPageRoute(builder:(context) => SplashScreen());
-      case welcome:
-        return CupertinoPageRoute(builder:(context) => WelcomeScreen());
-      case home:
-        return CupertinoPageRoute(builder:(context) => MainScreen());
-      case login:
-        return CupertinoPageRoute(builder:(context) => LoginScreen());
-      case register:
-        return CupertinoPageRoute(builder:(context) => RegisterScreen());
+
+  static Map<String, Widget Function(BuildContext)> map = {
+    splash: (context) => SplashScreen(),
+    home: (context) => MainScreen(),
+    login: (context) => LoginScreen(),
+    register: (context) => RegisterScreen()
+  };
+
+  static Future<dynamic> pushTo(BuildContext context, Widget screen, {bool clear = false}) async {
+    if(clear) {
+      return Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder:(context) => screen), (r) => false);
     }
-
-    return CupertinoPageRoute(builder:(context) => SplashScreen());
-  }
-
-  static Future<dynamic> pushTo(BuildContext context, Widget screen ) async {
     return Navigator.of(context).push(CupertinoPageRoute(builder:(context) => screen));
   }
+
+
 }
 

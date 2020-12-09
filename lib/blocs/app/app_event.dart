@@ -1,4 +1,4 @@
-import 'package:com.kaiyouit.caiwai/data/models/user.dart';
+import 'package:com.ourlife.app/data/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AppEvent extends Equatable {

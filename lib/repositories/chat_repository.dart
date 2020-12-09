@@ -7,7 +7,6 @@ class ChatRepository implements _ChatRepository {
   String token;
 
   static final ChatRepository _singleton = ChatRepository._internal();
-
   static ChatRepository getInstance() => _singleton;
 
   ChatRepository._internal();
