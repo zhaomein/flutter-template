@@ -1,5 +1,5 @@
-import 'package:com.ourlife.app/providers/database_provider.dart';
-import 'package:com.ourlife.app/extensions/dynamic_extension.dart';
+import 'package:mcaio/extensions/dynamic_extension.dart';
+import 'package:mcaio/providers/database_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'model.dart';
 
@@ -15,7 +15,7 @@ class Table {
     return await db.query(tableName, where: "id = ?", whereArgs: [id]);
   }
 
-  Future<List> rowQuery(String query) async {
+  Future<List> rawQuery(String query) async {
     final Database db = await DbProvider().database;
     var res = await db.rawQuery(query);
     return res;
@@ -70,10 +70,10 @@ class Table {
 
   Future<List> query({
     String where, List whereArgs, int offset, int limit, String orderBy,
-    String groupBy, List columns, String having
+    String groupBy, List<String> columns, String having
   }) async {
 
-    print("$tag: Select $tableName - $where, $whereArgs - limit $limit");
+    print("$tag: Select $tableName - where: $where, $whereArgs - limit: $limit");
     final Database db = await DbProvider().database;
 
     return await db.query(tableName,

@@ -1,70 +1,68 @@
-import 'package:com.ourlife.app/blocs/app/bloc.dart';
-import 'package:com.ourlife.app/repositories/chat_repository.dart';
-import 'package:com.ourlife.app/widgets/restart_app.dart';
+import 'package:bloc/bloc.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:com.ourlife.app/config/routes.dart';
-import 'package:com.ourlife.app/bloc_delegate.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:intl/intl.dart';
+import 'package:mcaio/config/routes.dart';
+import 'package:mcaio/helpers/file_helpers.dart';
+import 'package:mcaio/bloc_observer.dart';
+import 'app/app_bloc.dart';
 import 'language.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();
-  runApp(RestartApp(child: App()));
+  runApp(App());
+  FileHelper.createAppDirectories();
+  // Firebase.initializeApp();
 }
 
 class App extends StatelessWidget {
-
+  
   @override
   Widget build(BuildContext context) {
-
-    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
-
     return BlocProvider<AppBloc>(
-        create: (BuildContext context) => AppBloc(),
-        child: BlocListener<AppBloc, AppState>(
-            listener: (context, state) {
-              if(state.isAuthenticated) {
-                ChatRepository.initialize(state.token);
-              }
-            },
-            child: BlocBuilder<AppBloc, AppState>(
-              buildWhen: (currentState, comingState) {
-                return comingState.language != currentState.language;
-              },
-              builder: (context, state) {
-                Intl.defaultLocale = state.language;
-                return MaterialApp(
-                  title: 'Ourlife',
-                  localizationsDelegates: [
-                    AppLocalizationsDelegate(),
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate
-                  ],
-                  supportedLocales: AppLg.getLocales,
-                  localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
-                    if (locale == null) {
-                      print("Language locale is null!!. Set support to first!");
-                      return supportedLocales.first;
-                    }
-                    for (Locale supportedLocale in supportedLocales) {
-                      if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
-                        return supportedLocale;
-                      }
-                    }
-                    return supportedLocales.first;
-                  },
-                  locale: Locale(state.language),
-                  theme: state.theme,
-                  initialRoute: Routes.splash,  //set default route
-                  routes: Routes.map,
-                );
-              },
-            )
-        )
+      create: (context) => AppBloc(),
+      child: MaterialApp(
+        title: 'Template',
+        localizationsDelegates: [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: [
+          // const Locale('en', 'US'),
+          const Locale('vi', 'VN'),
+        ], 
+        localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {  
+          if (locale == null) {
+            debugPrint("Language locale is null!!. Set support to first!");
+            return supportedLocales.first;
+          }
+
+          for (Locale supportedLocale in supportedLocales) {  
+            if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {  
+              return supportedLocale;  
+            }
+          }
+          return supportedLocales.first;  
+        },
+        locale: Locale('vi', 'VN'),
+        theme: ThemeData(
+          // textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+          backgroundColor: Colors.grey[300],
+          primarySwatch: Colors.blue,
+          buttonTheme: ButtonThemeData(
+            textTheme: ButtonTextTheme.accent,
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: Colors.orange,
+              secondary: Colors.white,
+            ),
+          )
+        ),
+        initialRoute: Routes.splash,
+        routes: Routes.map,
+      )
     );
   }
 }

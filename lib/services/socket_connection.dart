@@ -1,6 +1,6 @@
-import 'package:com.ourlife.app/config/api_constants.dart';
-import 'package:com.ourlife.app/extensions/dynamic_extension.dart';
 import 'package:device_id/device_id.dart';
+import 'package:mcaio/config/constants.dart';
+import 'package:mcaio/extensions/dynamic_extension.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 typedef ListenFuntion = Function(Map message);
@@ -39,7 +39,7 @@ class SocketConnection {
       'transports': ['websocket'],
       'extraHeaders': {
         'token': _token,
-        'device_id': deviceId
+        'device-id': deviceId
       }
     });
 

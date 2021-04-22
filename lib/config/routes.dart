@@ -1,22 +1,18 @@
-import 'package:com.ourlife.app/screens/login/login_screen.dart';
-import 'package:com.ourlife.app/screens/register/register_screen.dart';
-import 'package:com.ourlife.app/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:com.ourlife.app/screens/main_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:mcaio/screens/login/login_screen.dart';
+import 'package:mcaio/screens/main/main_screen.dart';
+import 'package:mcaio/screens/splash_screen.dart';
 
 class Routes {
-  static const String splash = '/';
-  static const String welcome = '/welcome';
   static const String home = '/home';
+  static const String splash = '/splash';
   static const String login = '/login';
-  static const String register = '/register';
-
 
   static Map<String, Widget Function(BuildContext)> map = {
     splash: (context) => SplashScreen(),
-    home: (context) => MainScreen(),
     login: (context) => LoginScreen(),
-    register: (context) => RegisterScreen()
+    home: (context) => MainScreen(),
   };
 
   static Future<dynamic> pushTo(BuildContext context, Widget screen, {bool clear = false}) async {
@@ -25,7 +21,5 @@ class Routes {
     }
     return Navigator.of(context).push(CupertinoPageRoute(builder:(context) => screen));
   }
-
-
 }
 

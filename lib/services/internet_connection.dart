@@ -6,7 +6,6 @@ class InternetConnection {
   
     static final InternetConnection _singleton = new InternetConnection._internal();
     static InternetConnection getInstance() => _singleton;
-
     InternetConnection._internal();
     
     bool hasConnection = false;
