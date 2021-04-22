@@ -2,7 +2,7 @@
 
 - **assets**: chứa các files tài nguyên như; images, fonts, file ngôn ngữ, audio, ...
 - **assets/languages**: folder chứa file định nghĩa các ngôn ngữ của app
-- **lib/components**: Chứa các thành phần có thể dùng lại nhiều lần trong app
+- **lib/widgets**: Chứa các thành phần có thể dùng lại nhiều lần trong app
 - **lib/config**: chứa config của app (api, constant, routes)
 - **lib/config/routes.dart**: file định nghĩa các màn hình có trong app
 - **lib/data**: chứa các file model của app và providers tương tác với api hoặc sqlite
